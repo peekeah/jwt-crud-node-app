@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const usersRouter = require('./routes/usersRouter');
-
+const loginRouter = require('./routes/loginRouter');
 
 dotenv.config();
 
@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 
 // routes
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
 
 
 // db connection
