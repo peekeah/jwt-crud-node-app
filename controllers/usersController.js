@@ -35,3 +35,15 @@ exports.updateUser = async(req, res) => {
         res.status(403).send(err);
     }
 }
+
+
+// module to delete user
+exports.deleteUser = async(req, res) => {
+    try {
+        const response = await users.deleteOne({ _id: req.params.id });
+        res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.status(403).send(err);
+    }
+}
