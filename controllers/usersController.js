@@ -4,9 +4,18 @@ const bcrypt = require('bcrypt');
 // module to create new user
 exports.createUser = async(req, res) => {
     try {
+        // validating existing user
+        let existUser = await users.findOne({ email: req.body.email });
+        if(existUser) return res.status(403).send({ message: "Email already exists" });
+
+        existUser = await users.findOne({ mobile_no: req.body.mobile_no });
+        if(existUser) return res.status(403).send({ message: "Mobile no already exist"});
+
+
         // hashing password
         const salt = await bcrypt.genSalt(7);
         req.body.password = await bcrypt.hash(req.body.password, salt);
+
 
         // saving in db
         const response = await new users(req.body).save();
